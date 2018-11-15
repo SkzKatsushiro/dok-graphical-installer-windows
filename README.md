@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-*Download and install the program:
+* Download and install the program:
 http://nsis.sourceforge.net/Main_Page
 
 * Zip the folder steamapps
