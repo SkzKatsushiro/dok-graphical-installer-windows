@@ -15,7 +15,7 @@ http://nsis.sourceforge.net/Main_Page
 
 * Open the NSIS
 
-* Zhoose the Installer based on zip option
+* Choose the Installer based on zip option
 
 ### 
 
