@@ -1,8 +1,9 @@
 
 !include "MUI.nsh"
+!include 'LogicLib.nsh'
 
   !insertmacro MUI_PAGE_WELCOME
-  !insertmacro MUI_PAGE_LICENSE "${NSISDIR}\Docs\Modern UI\License.txt"
+  ;!insertmacro MUI_PAGE_LICENSE "${NSISDIR}\Docs\Modern UI\License.txt"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
@@ -10,7 +11,7 @@
   
   !insertmacro MUI_UNPAGE_WELCOME
   !insertmacro MUI_UNPAGE_CONFIRM
-  !insertmacro MUI_UNPAGE_LICENSE "${NSISDIR}\Docs\Modern UI\License.txt"
+  ;!insertmacro MUI_UNPAGE_LICENSE "${NSISDIR}\Docs\Modern UI\License.txt"
   !insertmacro MUI_UNPAGE_COMPONENTS
   !insertmacro MUI_UNPAGE_DIRECTORY
   !insertmacro MUI_UNPAGE_INSTFILES
@@ -89,26 +90,50 @@ OutFile "installer.exe"
 InstallDir "$PROGRAMFILES32\Steam"
  
 # default section start
-Section "Installer Section"
+Section "Backup Managed"
+
+    # define output path
+    SetOutPath $INSTDIR
  
-# define output path
-SetOutPath $INSTDIR
- 
-    CreateDirectory "$INSTDIR\steamapps\common\Deserts of Kharak\Data\originalManaged\"
-    CopyFiles "$INSTDIR\steamapps\common\Deserts of Kharak\Data\Managed\*" "$INSTDIR\steamapps\common\Deserts of Kharak\Data\originalManaged"
+    ${If} ${FileExists} '$INSTDIR\steamapps\common\Deserts of Kharak\'
+
+        CreateDirectory "$INSTDIR\steamapps\common\Deserts of Kharak\Data\originalManaged\"
+        CopyFiles "$INSTDIR\steamapps\common\Deserts of Kharak\Data\Managed\*" "$INSTDIR\steamapps\common\Deserts of Kharak\Data\originalManaged"
+
+    ${Else}
+        MessageBox MB_OK "Did not find Deserts of Kharak folders"
+    ${EndIf}
+
+SectionEnd
+
+Section "Install Map Mod 0.10"
+
+    # define output path
+    SetOutPath $INSTDIR
+
+    file /r "map-mod\steamapps"
+
+SectionEnd
+
+Section 'Create Unistaller'
+
+    # define output path
+    SetOutPath $INSTDIR
 
     # define uninstaller name
     WriteUninstaller "$INSTDIR\steamapps\common\Deserts of Kharak\dok-mod-uninstaller.exe"
 
 SectionEnd
+
+
 # create a section to define what the uninstaller does.
 # the section will always be named "Uninstall"
 Section "Uninstall"
  
     # Always delete uninstaller first
-    Delete "$INSTDIR\steamapps\common\Deserts of Kharak\dok-mod-uninstaller.exe"
+    Delete "$INSTDIR\dok-mod-uninstaller.exe"
 
-    CopyFiles "$INSTDIR\steamapps\common\Deserts of Kharak\Data\originalManaged\*" "$INSTDIR\steamapps\common\Deserts of Kharak\Data\Managed\"
+    CopyFiles "$INSTDIR\Data\originalManaged\*" "$INSTDIR\Data\Managed\"
 
     # now delete installed file
     Delete "$INSTDIR\steamapps\common\Deserts of Kharak\Data\originalManaged"
