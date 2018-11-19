@@ -13,7 +13,7 @@ http://nsis.sourceforge.net/Main_Page
 
 * Choose the compile nsi option
 
-* Find the scrit folder and choose it
+* Find the script and choose it
 
 ### 
 
