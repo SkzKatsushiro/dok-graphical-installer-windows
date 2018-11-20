@@ -9,11 +9,11 @@ These instructions will get you a copy of the project up and running on your loc
 * Download and install the program:
 http://nsis.sourceforge.net/Main_Page
 
-* Zip the folder steamapps
-
 * Open the NSIS
 
-* Choose the Installer based on zip option
+* Choose the compile nsi option
+
+* Find the script and choose it
 
 ### 
 
